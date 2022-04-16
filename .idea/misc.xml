@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.13763661202185792" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_directions.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_exit.xml" value="0.30932971014492755" />
         <entry key="app/src/main/res/layout/activity_location_recommendation.xml" value="0.30932971014492755" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_login2.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3404159545898438" />
+        <entry key="app/src/main/res/layout/activity_parking_display.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_qr_code.xml" value="0.30932971014492755" />
         <entry key="app/src/main/res/layout/activity_registeration.xml" value="0.4633102416992187" />
       </map>

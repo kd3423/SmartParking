@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 public class LoginActivity extends AppCompatActivity {
     DataBaseHelper myDataBaseHelper;
     private EditText eUsername;
@@ -28,9 +30,12 @@ public class LoginActivity extends AppCompatActivity {
         eLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Gson gson = new Gson();
+//                Users u1 = gson.fromJson(getIntent().getStringExtra("user_obj"), Users.class);
+
                 String inputUserName = eUsername.getText().toString();
                 user_logged = inputUserName;
-                System.out.println(user_logged+"IS a USER");
+                System.out.println(user_logged+" IS a USER");
                 String inputPassword = ePassword.getText().toString();
                 if(inputUserName.isEmpty() || inputPassword.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Enter a valid username or password!", Toast.LENGTH_SHORT).show();
@@ -41,9 +46,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else{
                         // Go to the Welcome page
-//                        System.out.println("IS a USER");
+                        System.out.println("IS a USER");
 //                        user_logged = inputUserName;
+
+
+
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+
                         Toast.makeText(LoginActivity.this,"Successfully Logged-In", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }

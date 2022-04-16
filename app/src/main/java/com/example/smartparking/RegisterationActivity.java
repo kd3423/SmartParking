@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.Calendar;
 
 public class RegisterationActivity extends AppCompatActivity {
@@ -27,27 +29,31 @@ public class RegisterationActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validate()){
+//                if(validate()){
                     // get the db and store the user info in it.
                     String fname = firstName.getText().toString();
                     String lname = lastName.getText().toString();
                     String upass = userPassword.getText().toString();
                     String dtime = Calendar.getInstance().getTime().toString();
-                    int cardNo = Integer.parseInt(cardNumber.getText().toString());
+                    long cardNo = Long.parseLong(cardNumber.getText().toString());
                     int sc = Integer.parseInt(securityCode.getText().toString());
                     int age_ = Integer.parseInt(age.getText().toString());
                     String addr_ = address.getText().toString();
                     String nameOnC = nameOCard.getText().toString();
                     int zip = Integer.parseInt(postalCode.getText().toString());
                     //adding to on device store
-                    addData(fname,lname,upass,dtime,age_, addr_);
+                    System.out.printf("hi %s %s %s %s %s\n",fname,lname,upass,dtime, addr_);
+//                    addData(fname,lname,upass,dtime,age_, addr_);
 
                     //adding to global store
                     CardInfo c1 = new CardInfo(cardNo, sc,nameOnC, zip);
                     Users u1 = new Users(fname+" "+lname,addr_,age_,c1);
 
                     // some logic to store this object
-
+                    //serialize the user class object
+                    Gson gson = new Gson();
+                    String myjson = gson.toJson(u1);
+                    System.out.println("Hi You: "+myjson);
 
                     firstName.setText("");
                     lastName.setText("");
@@ -59,9 +65,11 @@ public class RegisterationActivity extends AppCompatActivity {
 
 
 
-                    Intent intent = new Intent(RegisterationActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
+
+//                    Intent intent = new Intent(RegisterationActivity.this, LoginActivity.class);
+//
+//                    startActivity(intent);
+//                }
             }
         });
     }

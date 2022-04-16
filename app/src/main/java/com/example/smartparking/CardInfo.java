@@ -1,14 +1,14 @@
 package com.example.smartparking;
 
 public class CardInfo {
-    int cardNumber;
+    long cardNumber;
     int securityCode;
     String nameOnCard;
     int postalCode;
     boolean validateInfo=false;
 
     //  constructor
-    public CardInfo(int cardNumber, int securityCode, String nameOnCard, int postalCode){
+    public CardInfo(long cardNumber, int securityCode, String nameOnCard, int postalCode){
         boolean c1 = false,c2 = false;
 
         if((int)(Math.log10(cardNumber)+1) == 16){

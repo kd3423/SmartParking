@@ -13,7 +13,7 @@ public class Users {
     int age;
 
     int spotId;
-    ParkingLot plot;
+    String plot;
     Date bookedOn;
     boolean bookCheck;
     List<String> pastBills = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Users {
         return this.userId;
     }
 
-    public boolean updateBooking(ParkingLot plot, int spotId, Date bookedOn){
+    public boolean updateBooking(String plot, int spotId, Date bookedOn){
         if(!this.bookCheck){
             this.plot = plot;
             this.spotId = spotId;
