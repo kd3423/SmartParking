@@ -5,31 +5,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.example.smartparking.data.api.APIClient;
+import com.example.smartparking.data.api.APIInterface;
+import com.example.smartparking.data.model.AddUserResponse;
+import com.example.smartparking.data.model.Card;
+import com.example.smartparking.data.model.UsersPojo;
 
 import java.util.Calendar;
 
-public class RegisterationActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RegistrationActivity extends AppCompatActivity {
     private EditText firstName, lastName, age, address, cardNumber, securityCode, userPassword, nameOCard, postalCode;
     private Button registerBtn;
     DataBaseHelper myDataBaseHelper;
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registeration);
+        myDataBaseHelper = new DataBaseHelper(this);
         setupRegister();
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(validate()){
+                if(validate()){
                     // get the db and store the user info in it.
                     String fname = firstName.getText().toString();
                     String lname = lastName.getText().toString();
@@ -42,18 +52,28 @@ public class RegisterationActivity extends AppCompatActivity {
                     String nameOnC = nameOCard.getText().toString();
                     int zip = Integer.parseInt(postalCode.getText().toString());
                     //adding to on device store
-                    System.out.printf("hi %s %s %s %s %s\n",fname,lname,upass,dtime, addr_);
-//                    addData(fname,lname,upass,dtime,age_, addr_);
+                    addData(fname,lname,upass,dtime,age_);
 
                     //adding to global store
-                    CardInfo c1 = new CardInfo(cardNo, sc,nameOnC, zip);
-                    Users u1 = new Users(fname+" "+lname,addr_,age_,c1);
+                    Card c1 = new Card(cardNo, sc,nameOnC, zip);
 
-                    // some logic to store this object
-                    //serialize the user class object
-                    Gson gson = new Gson();
-                    String myjson = gson.toJson(u1);
-                    System.out.println("Hi You: "+myjson);
+                apiInterface = APIClient.getClient().create(APIInterface.class);
+                UsersPojo user = new UsersPojo(fname+" "+lname,addr_, dtime, age_, c1, 0, "","" ,false,"");
+                Call<AddUserResponse> call2 = apiInterface.createUser(user);
+                call2.enqueue(new Callback<AddUserResponse>() {
+                    @Override
+                    public void onResponse(Call<AddUserResponse> call, Response<AddUserResponse> response) {
+                        if (response.body().getSuccess().equals("1")) {
+                            Toast.makeText(RegistrationActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddUserResponse> call, Throwable t) {
+
+                    }
+                });
+
 
                     firstName.setText("");
                     lastName.setText("");
@@ -66,21 +86,20 @@ public class RegisterationActivity extends AppCompatActivity {
 
 
 
-//                    Intent intent = new Intent(RegisterationActivity.this, LoginActivity.class);
-//
-//                    startActivity(intent);
-//                }
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    public void addData(String fname, String lname, String pass, String dtime, int a, String addr){
+    public void addData(String fname, String lname, String pass, String dtime,int a){
         Boolean check = false;
         if(a >=18){
-           check = myDataBaseHelper.addData(fname,lname,pass,dtime,a, addr);
+           check = myDataBaseHelper.addData(fname,lname,pass,dtime);
         }
         if(check) {
-            Toast.makeText(this, "User Registration Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this, "Unable to Register User, must be 18 or older", Toast.LENGTH_SHORT).show();
         }

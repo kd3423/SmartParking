@@ -13,10 +13,10 @@ import java.util.Date;
 public class Qrcode {
     String userId;
     String pId;
-    Date entryTime;
+    String entryTime;
     Bitmap qrcode;
 
-    public Qrcode(String userId, Date entryTime, String pId){
+    public Qrcode(String userId, String entryTime, String pId){
         this.userId = userId;
         this.entryTime = entryTime;
         this.pId = pId;
@@ -24,10 +24,10 @@ public class Qrcode {
     }
 
     private void generateQrCode(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        
-        String dateStr = dateFormat.format(this.entryTime);
-        this.qrcode = QRCode.from(this.userId+","+dateStr+","+this.pId).bitmap();
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+//
+//        String dateStr = dateFormat.format(this.entryTime);
+        this.qrcode = QRCode.from(this.userId+","+entryTime+","+this.pId).bitmap();
     }
 
     public Bitmap getQrCode(){

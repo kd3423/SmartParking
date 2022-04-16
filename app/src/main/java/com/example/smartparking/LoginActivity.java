@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 public class LoginActivity extends AppCompatActivity {
     DataBaseHelper myDataBaseHelper;
     private EditText eUsername;
@@ -19,12 +17,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button eLogin;
     public static String user_logged;
     boolean credFlag = false;
+    String tempName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         myDataBaseHelper = new DataBaseHelper(this);
+
         setupRegister();
 
         eLogin.setOnClickListener(new View.OnClickListener() {
@@ -45,14 +45,13 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this,"Invalid username or password!", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        // Go to the Welcome page
-                        System.out.println("IS a USER");
-//                        user_logged = inputUserName;
+
+
 
 
 
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-
+                        intent.putExtra("name", tempName);
                         Toast.makeText(LoginActivity.this,"Successfully Logged-In", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
@@ -62,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupRegister(){
-        eUsername = (EditText) findViewById(R.id.ptUserName);
+        eUsername = (EditText) findViewById(R.id.ptLotId);
         ePassword = (EditText) findViewById(R.id.etPassword);
         eLogin = (Button) findViewById(R.id.loginbtn);
 
@@ -73,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         Cursor data = myDataBaseHelper.getData();
         while(data.moveToNext()){
             if(lname.equals(data.getString(2)) && password.equals(data.getString(3))){
+                this.tempName = data.getString(1)+" "+data.getString(2);
                 return true;
             }
         }

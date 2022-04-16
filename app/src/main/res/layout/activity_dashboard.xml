@@ -7,7 +7,7 @@
     tools:context=".DashboardActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/reserve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reserve"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.9" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/Onsitebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="On the Go"
@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.072" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/searchLotsBtn"
         android:layout_width="246dp"
         android:layout_height="47dp"
         android:text="Search Lots"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.165" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/Getqrcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My QRCode"
@@ -67,34 +67,30 @@
         app:layout_constraintVertical_bias="0.9" />
 
     <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="230dp"
-        tools:layout_editor_absoluteY="227dp" />
+        android:id="@+id/tvhistoryHead"
+        android:layout_width="336dp"
+        android:layout_height="31dp"
+        android:text="Past Record"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.257" />
 
     <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="304dp" />
+        android:id="@+id/historytv"
+        android:layout_width="328dp"
+        android:layout_height="186dp"
+        android:text="Empty"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.387" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="104dp"
-        tools:layout_editor_absoluteY="226dp" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="233dp"
-        tools:layout_editor_absoluteY="304dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
