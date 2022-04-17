@@ -57,7 +57,7 @@ public class DirectionsActivity extends AppCompatActivity {
 
         apiInterface = APIClient.getClient().create(APIInterface.class);
 
-        // get user object from global store through node.js & npm server
+        // get parkingLot object from global store through node.js & npm server
 
         GetParkingByLotIdRequest parkingLot = new GetParkingByLotIdRequest(user1.getParkingLotId());
         Call<ParkingLotPojo> call = apiInterface.getParkingByLotId(parkingLot);

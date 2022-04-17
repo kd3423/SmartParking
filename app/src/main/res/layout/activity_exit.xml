@@ -37,7 +37,7 @@
         android:id="@+id/tvPayment"
         android:layout_width="313dp"
         android:layout_height="55dp"
-        android:text="Empty"
+        android:text="Please Wait, processing payment..."
         android:textAlignment="center"
         android:textColor="#FF9800"
         android:textSize="20sp"

@@ -103,4 +103,8 @@ public class Card implements Serializable {
 			this.validateInfo = true;
 		}
 	}
+
+	public boolean authenticatePayment(){
+		return this.validateInfo;
+	}
 }

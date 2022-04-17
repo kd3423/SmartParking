@@ -87,11 +87,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, LocationRecommendationActivity.class);
-                double lat = 33.435303;
-                double lon = 111.929483;
-                intent.putExtra("Ulat",lat);
-                intent.putExtra("Ulon",lon);
-                intent.putExtra("Uplace","Ten01");
+                intent.putExtra("userObj",user1);
                 startActivity(intent);
             }
         });
@@ -163,6 +159,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
     }
+
     private void setupRegister(){
         welcome = (TextView) findViewById(R.id.textView5);
         searchLots = (Button) findViewById(R.id.searchLotsBtn);
