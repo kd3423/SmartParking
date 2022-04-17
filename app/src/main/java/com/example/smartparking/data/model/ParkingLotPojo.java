@@ -5,11 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class ParkingLotPojo{
 
+	@SerializedName("_id")
+	private String _id;
+
 	@SerializedName("spots")
 	private List<SpotsItem> spots;
 
 	@SerializedName("lotId")
-	private int lotId;
+	private String lotId;
 
 	@SerializedName("location")
 	private Location location;
@@ -22,11 +25,11 @@ public class ParkingLotPojo{
 		return spots;
 	}
 
-	public void setLotId(int lotId){
+	public void setLotId(String lotId){
 		this.lotId = lotId;
 	}
 
-	public int getLotId(){
+	public String getLotId(){
 		return lotId;
 	}
 

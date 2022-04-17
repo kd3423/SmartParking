@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.smartparking.data.api.APIClient;
 import com.example.smartparking.data.api.APIInterface;
-import com.example.smartparking.data.model.AddUserResponse;
+import com.example.smartparking.data.model.GenericResponse;
 import com.example.smartparking.data.model.Card;
 import com.example.smartparking.data.model.UsersPojo;
 
@@ -59,17 +58,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 apiInterface = APIClient.getClient().create(APIInterface.class);
                 UsersPojo user = new UsersPojo(fname+" "+lname,addr_, dtime, age_, c1, 0, "","" ,false,"");
-                Call<AddUserResponse> call2 = apiInterface.createUser(user);
-                call2.enqueue(new Callback<AddUserResponse>() {
+                Call<GenericResponse> call2 = apiInterface.createUser(user);
+                call2.enqueue(new Callback<GenericResponse>() {
                     @Override
-                    public void onResponse(Call<AddUserResponse> call, Response<AddUserResponse> response) {
+                    public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                         if (response.body().getSuccess().equals("1")) {
                             Toast.makeText(RegistrationActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<AddUserResponse> call, Throwable t) {
+                    public void onFailure(Call<GenericResponse> call, Throwable t) {
 
                     }
                 });

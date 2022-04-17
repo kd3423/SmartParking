@@ -4,9 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +13,10 @@ import android.widget.Toast;
 
 import com.example.smartparking.data.api.APIClient;
 import com.example.smartparking.data.api.APIInterface;
-import com.example.smartparking.data.model.AddUserResponse;
-import com.example.smartparking.data.model.GetUserByNameRequest;
+import com.example.smartparking.data.model.GenericResponse;
 import com.example.smartparking.data.model.GetUserResponse;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +30,7 @@ public class QrCodeActivity extends AppCompatActivity {
     private Button generate;
     private EditText pId;
     private ImageView qrImage;
+    private TextView onscreeenMsg;
     APIInterface apiInterface;
     GetUserResponse user1;
 
@@ -77,14 +73,14 @@ public class QrCodeActivity extends AppCompatActivity {
                 generate.setEnabled(false);
                 pId.setEnabled(false);
 
-                Call<AddUserResponse> call2 = apiInterface.updateUser(user1);
-                call2.enqueue(new Callback<AddUserResponse>() {
+                Call<GenericResponse> call2 = apiInterface.updateUser(user1);
+                call2.enqueue(new Callback<GenericResponse>() {
                     @Override
-                    public void onResponse(Call<AddUserResponse> call, Response<AddUserResponse> response) {
+                    public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                         Toast.makeText(QrCodeActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     @Override
-                    public void onFailure(Call<AddUserResponse> call, Throwable t) {
+                    public void onFailure(Call<GenericResponse> call, Throwable t) {
 
                     }
                 });
@@ -111,11 +107,35 @@ public class QrCodeActivity extends AppCompatActivity {
         });
     }
 
+//    private void startTimerThread() {
+//        Handler handler = new Handler();
+//        Runnable runnable = new Runnable() {
+//            private long startTime = System.currentTimeMillis();
+//            public void run() {
+//                while (user1.getSpotId()!=0) {
+//                    try {
+//                        Thread.sleep(1000);
+//                    }
+//                    catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    handler.post(new Runnable(){
+//                        public void run() {
+//                            tvTime.setText("" + ((System.currentTimeMillis() - this.startTime) / 1000));
+//                        }
+//                    });
+//                }
+//            }
+//        };
+//        new Thread(runnable).start();
+//    }
+
     private void setupRegister(){
         directions = (Button) findViewById(R.id.btnNext);
         generate = (Button) findViewById(R.id.generateQrcode);
         back = (Button) findViewById(R.id.btnDash1);
         pId = (EditText) findViewById(R.id.ptLotId);
         qrImage = (ImageView) findViewById(R.id.QrCodeView);
+        onscreeenMsg = (TextView) findViewById(R.id.textViewMsg);
     }
 }

@@ -2,7 +2,7 @@ package com.example.smartparking.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AddUserResponse{
+public class GenericResponse {
 
 	@SerializedName("success")
 	private String success;
