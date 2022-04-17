@@ -1,5 +1,7 @@
 package com.example.smartparking;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CostEstimator {
@@ -9,9 +11,15 @@ public class CostEstimator {
     double billAmount;
     double pricePerHour1 = 10;
     double pricePerHour2 = 5;
+    int mins =0;
 
-    public CostEstimator(Date startTime, boolean exitCheck){
-        this.startTime = startTime;
+    public CostEstimator(String startTime, boolean exitCheck){
+        SimpleDateFormat formatter = new SimpleDateFormat();
+        try {
+            this.startTime = formatter.parse(startTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.currenTime = new Date();
         this.exitCheck = exitCheck;
         this.billAmount = 0.0;
@@ -22,6 +30,7 @@ public class CostEstimator {
         if(this.exitCheck){
             double timeDiff = (double) (this.currenTime.getTime() - this.startTime.getTime());
             timeDiff = (timeDiff/1000)%60; //time difference in seconds.
+            this.mins = (int) Math.ceil(timeDiff/60);
             timeDiff = Math.ceil(timeDiff/3600.0);
             this.billAmount = timeDiff * pricePerHour1;
             if(timeDiff>24) {
@@ -33,6 +42,8 @@ public class CostEstimator {
     public double getBillAmount(){
         return this.billAmount;
     }
+
+    public int getMins(){return this.mins;}
 
 
 }

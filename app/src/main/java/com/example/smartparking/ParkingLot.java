@@ -32,7 +32,7 @@ public class ParkingLot {
             directions.add("its on the floor: "+ Integer.toString(ups));
 
             if(i%2 ==0){
-                directions.add("Drive to Right side of the parking level");
+//                directions.add("Drive to Right side of the parking level");
                 directions.add("Follow the Blue arrows on the surface");
                 directions.add("Your spot is "+Integer.toString(i%ups)+ "from your current position on left side");
             }

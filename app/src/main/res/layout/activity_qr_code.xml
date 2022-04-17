@@ -57,8 +57,8 @@
 
     <TextView
         android:id="@+id/textViewMsg"
-        android:layout_width="329dp"
-        android:layout_height="67dp"
+        android:layout_width="335dp"
+        android:layout_height="141dp"
         android:text="Scan the above QRcode at the parking lot entry"
         android:textAlignment="center"
         android:textColor="#FF9800"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561" />
+        app:layout_constraintVertical_bias="0.62" />
 
     <TextView
         android:id="@+id/textView11"
@@ -91,7 +91,7 @@
         android:fontFamily="sans-serif-medium"
         android:hint="Eg., 10"
         android:inputType="textPersonName"
-        android:textColor="@color/white"
+        android:textColor="#AEFFFFFF"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

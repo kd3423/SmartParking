@@ -39,7 +39,7 @@ public interface APIInterface {
     Call<GenericResponse> createParkingLot(@Body ParkingLotPojo parking);
 
     @POST("/parkinglot/find")
-    Call<ParkingLotPojo> getParkingByLotIde(@Body GetParkingByLotIdRequest lotId);
+    Call<ParkingLotPojo> getParkingByLotId(@Body GetParkingByLotIdRequest lotId);
 
     @PUT("/parkinglot/update")
     Call<GenericResponse> updateParkingLot(@Body ParkingLotPojo parking);

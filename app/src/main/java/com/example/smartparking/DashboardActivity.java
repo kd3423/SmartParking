@@ -17,6 +17,9 @@ import com.example.smartparking.data.model.GetUserByNameRequest;
 import com.example.smartparking.data.model.GetUserResponse;
 import com.google.gson.Gson;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,9 +30,14 @@ public class DashboardActivity extends AppCompatActivity {
     private Button reserve;
     private Button onSite;
     private Button myQrcode;
+    private Button endSession;
     private Button searchLots;
+    private TextView costInfoTv;
     APIInterface apiInterface;
+    double bill;
+
     GetUserResponse user1;
+    boolean temp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity {
                 }
                 welcome.setText("Welcome "+ user1.getName());
                 history.setText(!TextUtils.isEmpty(user1.getHistory()) ? user1.getHistory() : "No record found!");
+                temp = true;
             }
 
             @Override
@@ -64,7 +73,7 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
         });
-
+        endSession.setEnabled(false);
         myQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,8 +114,55 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        //Declare the timer
+        Timer t = new Timer();
+//Set the schedule function and rate
+        t.scheduleAtFixedRate(new TimerTask() {
+
+                                  @Override
+                                  public void run() {
+                                      //Called each time when 1000 milliseconds (1 second) (the period parameter)
+                                      //put your code here
+                                      updateCurrentCost();
+
+                                  }
+
+                              },
+//Set how long before to start calling the TimerTask (in milliseconds)
+                4000,
+//Set the amount of time between each execution (in milliseconds)
+                3000);
+
+        endSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateCurrentCost();
+                Intent intent = new Intent(DashboardActivity.this, ExitActivity.class);
+                intent.putExtra("userObj",user1);
+                intent.putExtra("bill",bill);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
+    private void updateCurrentCost() {
+        if (temp) {
+            if (user1.getSpotId() != 0) {
+                CostEstimator estimator = new CostEstimator(user1.getBookedOn(), true);
+                bill = estimator.getBillAmount();
+                String costInfo = "PakingLot Id: " + user1.getParkingLotId() + "\n";
+                costInfo += "Spot Id: " + user1.getSpotId() + "\n";
+                costInfo = "Cost accumulated: $" + bill + "\n";
+                costInfo += "Time Spent: " + estimator.getMins() + " mins\n";
+                costInfoTv.setText(costInfo);
+                endSession.setEnabled(true);
+            } else {
+                costInfoTv.setText("No Booking yet!");
+            }
+        }
+    }
     private void setupRegister(){
         welcome = (TextView) findViewById(R.id.textView5);
         searchLots = (Button) findViewById(R.id.searchLotsBtn);
@@ -114,5 +170,7 @@ public class DashboardActivity extends AppCompatActivity {
         reserve = (Button) findViewById(R.id.reserve);
         onSite = (Button) findViewById(R.id.Onsitebtn);
         myQrcode = (Button) findViewById(R.id.Getqrcode);
+        endSession = (Button) findViewById(R.id.btnExit);
+        costInfoTv = (TextView) findViewById(R.id.tvCost);
     }
 }

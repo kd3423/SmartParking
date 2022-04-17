@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E43C3F41"
     tools:context=".DashboardActivity">
 
     <Button
@@ -30,11 +31,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9" />
 
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Booking"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.386" />
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:text="Welcome"
+        android:textColor="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -67,30 +81,62 @@
         app:layout_constraintVertical_bias="0.9" />
 
     <TextView
+        android:id="@+id/historytv"
+        android:layout_width="337dp"
+        android:layout_height="96dp"
+        android:text="Empty"
+        android:textAlignment="center"
+        android:textColor="#FF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.669" />
+
+    <TextView
         android:id="@+id/tvhistoryHead"
         android:layout_width="336dp"
         android:layout_height="31dp"
         android:text="Past Record"
         android:textAlignment="center"
         android:textAllCaps="true"
+        android:textColor="#FF5722"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.257" />
-
-    <TextView
-        android:id="@+id/historytv"
-        android:layout_width="328dp"
-        android:layout_height="186dp"
-        android:text="Empty"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.562" />
+
+    <TextView
+        android:id="@+id/tvCost"
+        android:layout_width="212dp"
+        android:layout_height="153dp"
+        android:text="Empty"
+        android:textAlignment="center"
+        android:textColor="#FF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.377" />
+
+    <TextView
+        android:id="@+id/tvCostTitle"
+        android:layout_width="334dp"
+        android:layout_height="30dp"
+        android:text="Current Booking"
+        android:textAlignment="center"
+        android:textColor="#FF5722"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.268" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,10 @@ public class GetParkingByLotIdRequest{
 		return lotId;
 	}
 
+	public GetParkingByLotIdRequest(String lotId) {
+		this.lotId = lotId;
+	}
+
 	@Override
  	public String toString(){
 		return 
