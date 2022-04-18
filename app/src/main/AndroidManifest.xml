@@ -12,9 +12,6 @@
         android:theme="@style/Theme.SmartParking"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ParkingDisplayActivity"
-            android:exported="false" />
-        <activity
             android:name=".ExitActivity"
             android:exported="false" />
         <activity

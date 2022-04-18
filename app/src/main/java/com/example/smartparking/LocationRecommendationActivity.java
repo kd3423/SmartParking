@@ -2,10 +2,13 @@ package com.example.smartparking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.smartparking.data.api.APIClient;
 import com.example.smartparking.data.api.APIInterface;
 import com.example.smartparking.data.model.GetParkingByLotIdRequest;
 import com.example.smartparking.data.model.GetUserResponse;
@@ -34,7 +37,7 @@ public class LocationRecommendationActivity extends AppCompatActivity {
         setupRegister();
 
         user1 = (GetUserResponse) getIntent().getSerializableExtra("userObj");
-
+        apiInterface = APIClient.getClient().create(APIInterface.class);
         // get all parkingLot objects from the server
         Call<List<ParkingLotPojo>> call = apiInterface.getParkingLots();
         call.enqueue(new Callback<List<ParkingLotPojo>>() {
@@ -59,6 +62,15 @@ public class LocationRecommendationActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<ParkingLotPojo>> call, Throwable t) {
 
+            }
+        });
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LocationRecommendationActivity.this, DashboardActivity.class);
+                intent.putExtra("name",user1.getName());
+                startActivity(intent);
             }
         });
     }

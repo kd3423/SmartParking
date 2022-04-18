@@ -140,6 +140,7 @@ public class QrCodeActivity extends AppCompatActivity {
                 user1 = response.body();
                 if(user1.getSpotId() != 0){
                     onscreeenMsg.setText("User validated, Assigned spot at Parking Lot: "+user1.getParkingLotId()+"\n Spot Id: "+user1.getSpotId());
+                    directions.setEnabled(true);
                 }
             }
 

@@ -73,7 +73,9 @@ public class DashboardActivity extends AppCompatActivity {
 
             }
         });
+
         endSession.setEnabled(false);
+
         myQrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +121,13 @@ public class DashboardActivity extends AppCompatActivity {
                                   public void run() {
                                       //Called each time when 1000 milliseconds (1 second) (the period parameter)
                                       //put your code here
-                                      updateCurrentCost();
+                                      runOnUiThread(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              updateCurrentCost();
+                                          }
+                                      });
+
 
                                   }
 

@@ -2,11 +2,14 @@ package com.example.smartparking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartparking.data.api.APIClient;
 import com.example.smartparking.data.api.APIInterface;
 import com.example.smartparking.data.model.GenericResponse;
 import com.example.smartparking.data.model.GetParkingByLotIdRequest;
@@ -37,9 +40,9 @@ public class ExitActivity extends AppCompatActivity {
         user1 = (GetUserResponse) getIntent().getSerializableExtra("userObj");
         bill = getIntent().getDoubleExtra("bill",0.0);
         note.setEnabled(false);
-        back.setEnabled(false);
         // validate the payment
         ChargePayment processPaymentObj = new ChargePayment(user1,bill);
+        apiInterface = APIClient.getClient().create(APIInterface.class);
 
         if(processPaymentObj.getPaymentStatus()){
             String cardNo = Long.toString(user1.getCard().getCardNumber());
@@ -54,11 +57,32 @@ public class ExitActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ParkingLotPojo> call, Response<ParkingLotPojo> response) {
                     pLotObj = response.body();
-                    for(SpotsItem spObj: pLotObj.getSpots()){
+                    List<SpotsItem> temp = pLotObj.getSpots();
+                    for(SpotsItem spObj: temp){
+                        System.out.println("Hi"+spObj.getId());
+                        System.out.println("Hi"+user1.getSpotId());
                         if(spObj.getId() == user1.getSpotId()){
                             spObj.setStatus(true);
+                            // update the user object
+
                         }
                     }
+                    pLotObj.setSpots(temp);
+                    user1.setBookedOn("");
+                    user1.setParkingLotId("");
+                    user1.setSpotId(0);
+                    user1.setBookCheck(false);
+                    Call<GenericResponse> call2 = apiInterface.updateUser(user1);
+                    call2.enqueue(new Callback<GenericResponse>() {
+                        @Override
+                        public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
+                            Toast.makeText(ExitActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onFailure(Call<GenericResponse> call, Throwable t) {
+
+                        }
+                    });
                 }
 
                 @Override
@@ -68,8 +92,8 @@ public class ExitActivity extends AppCompatActivity {
             });
 
             // update parkingLot object
-            Call<GenericResponse> call2 = apiInterface.updateParkingLot(pLotObj);
-            call2.enqueue(new Callback<GenericResponse>() {
+            Call<GenericResponse> call3 = apiInterface.updateParkingLot(pLotObj);
+            call3.enqueue(new Callback<GenericResponse>() {
                 @Override
                 public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
                     Toast.makeText(ExitActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -81,30 +105,24 @@ public class ExitActivity extends AppCompatActivity {
             });
 
 
-            // update the user object
-            user1.setBookedOn("");
-            user1.setParkingLotId("");
-            user1.setSpotId(0);
-            user1.setBookCheck(false);
-            call2 = apiInterface.updateUser(user1);
-            call2.enqueue(new Callback<GenericResponse>() {
-                @Override
-                public void onResponse(Call<GenericResponse> call, Response<GenericResponse> response) {
-                    Toast.makeText(ExitActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-                @Override
-                public void onFailure(Call<GenericResponse> call, Throwable t) {
 
-                }
-            });
-            back.setEnabled(true);
+
 
         }
         else{
             exitText.setText("Payment cannot be processed, please try again!");
             exitText.setEnabled(true);
-            back.setEnabled(true);
         }
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ExitActivity.this, DashboardActivity.class);
+                intent.putExtra("name",user1.getName());
+                startActivity(intent);
+            }
+        });
+
 
     }
 

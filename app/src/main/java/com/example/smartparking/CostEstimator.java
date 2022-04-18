@@ -14,7 +14,7 @@ public class CostEstimator {
     int mins =0;
 
     public CostEstimator(String startTime, boolean exitCheck){
-        SimpleDateFormat formatter = new SimpleDateFormat();
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         try {
             this.startTime = formatter.parse(startTime);
         } catch (ParseException e) {
@@ -29,9 +29,8 @@ public class CostEstimator {
     private void estimateBill() {
         if(this.exitCheck){
             double timeDiff = (double) (this.currenTime.getTime() - this.startTime.getTime());
-            timeDiff = (timeDiff/1000)%60; //time difference in seconds.
-            this.mins = (int) Math.ceil(timeDiff/60);
-            timeDiff = Math.ceil(timeDiff/3600.0);
+            timeDiff = (timeDiff / (1000*60*60)) % 24;
+            this.mins = (int) Math.ceil(timeDiff*60);
             this.billAmount = timeDiff * pricePerHour1;
             if(timeDiff>24) {
                 this.billAmount = (timeDiff - 24) * pricePerHour2;
